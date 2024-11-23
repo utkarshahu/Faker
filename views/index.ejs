@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Messenger</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <!-- Discord Logo -->
+            <img src="https://www.edigitalagency.com.au/wp-content/uploads/Discord-logo-icon-clyde-blurple-png-600x456.png" alt="Discord Logo" class="discord-logo">
+        </div>
+
+        <div class="nav">
+            <form method="get" action="/chats/new">
+                <button class="new-chat-btn">New Chat</button>
+            </form>
+        </div>
+
+        <!-- Chat Section -->
+        <% for(let chat of chats) { %>
+        <div class="chat">
+            <div class="chat-header">
+                <!-- Profile Photo based on chat from -->
+                <img class="profile-photo" src="<%= chat.from === 'Ishita' ? 'https://icon-library.com/images/discord-icon-template/discord-icon-template-20.jpg' : 'https://wallpaperaccess.com/full/765574.jpg' %>" alt="profile">
+                <p class="chat-meta"><b><i><%= chat.from %></i></b></p>
+            </div>
+
+            <div class="msg <%= chat.from === 'Ishita' ? 'sent' : 'received' %>">
+                <p><%= chat.msg %></p>
+                <form method="get" action="/chats/<%=chat._id %>/edit" class="edit-form">
+                    <button class="edit-btn">Edit</button>
+                </form>
+                <form method="post" action="/chats/<%=chat._id %>?_method=DELETE" class="edit-form">
+                    <button class="edit-btn">Delete</button>
+                </form>
+                <span class="timestamp">
+                    <p><%= chat.created_at.toString().split(" ")[4] %></p>
+                    <p><%= chat.created_at.toString().split(" ").slice(0,4).join("-") %></p>
+                </span>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</body>
+</html>
